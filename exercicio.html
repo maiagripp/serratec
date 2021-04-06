@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercicio Logica de Programação</title>
+  </head>
+  <body>
+    <script>
+      var nota1 = parseFloat(prompt('Insira sua nota:'));
+      var nota2 = parseFloat(prompt('Insira sua nota:'));
+      var nota3 = parseFloat(prompt('Insira sua nota:'));
+      var nota4 = parseFloat(prompt('Insira sua nota:'));
+
+      document.write('Primeira nota: ' + nota1 + '<br>');
+      document.write('Segunda nota: ' + nota2 + '<br>');
+      document.write('Terceira nota: ' + nota3 + '<br>');
+      document.write('Quarta nota: ' + nota4 + '<br><br>');
+
+      var soma = nota1 + nota2 + nota3 + nota4;
+      document.write('A <strong>soma</strong> das notas é ' + soma + '<br>');
+
+      var media = soma / 4;
+      document.write(
+        'A <strong>media</strong> das notas é ' + media + '<br><br>'
+      );
+
+      if (media >= 70) {
+        document.write("<h2 style='color: green;'>Você está aprovado!</h2>");
+      } else {
+        document.write(
+          "<h2 style='color: red;'>Você foi reprovado, estude mais</h2>"
+        );
+      }
+    </script>
+  </body>
+</html>

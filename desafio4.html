@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      /*
+                   GEB: é a quantidade de energia utilizada pelo organismo para manter as funções vitais,
+                   como funcionamento dos órgãos. Corresponde a 60 a 75% do GET.
+
+                   GET: é a soma do gastoenergético basal mais a soma das atividades realizadas ao longo do dia
+
+                   criar var para puxar o nome, idade, peso, altura, sexo, quantidade de peso que quer perder
+                   criar var para calcular o imc,
+                   criar função para calcular get e geb
+                   criar prompt de quantidade ideal de calorias por dia
+                   criar prompt de quantos dias irá perder os kg que solicitou acima
+
+                   Homens: 66,47 + (13,75 x P) + (5 x A) - (6,76 x I)
+                   Mulheres: 655 +(9,6 x P) + (1,7 x A) – (4,7 x I)
+
+                   em que:
+                   P = peso (em quilos) A = altura (em centímetros) I = idade (em anos)
+
+
+                   • Calculo do gasto energético total (GET)
+
+                   O GET deverá ser calculado multiplicando-se o GEB pelo fator atividade,
+                   que é estabelecido de acordo com a característica da atividade física
+                   diária do indivíduo. Desta forma:
+
+                   GET = GEB X Fator Atividade
+
+                   Fator atividade
+                   Mulheres
+                   Leve: 1,56
+                   Moderada: 1,64
+                   Intensa: 1,82
+
+                   Homens
+                   Leve: 1,55
+                   Moderada: 1,78
+                   Intensa: 2,10
+
+            */
+
+      var nome = prompt('Digite seu nome: ');
+      var idade = parseInt(prompt('Digite sua idade: '));
+      var peso = parseFloat(prompt('Digite seu peso: '));
+      var altura = parseFloat(prompt('Digite sua altura em centimetros: '));
+      var sexo = prompt('1 para Masculino e 2 para Feminino');
+      var pesoPerder = parseFloat(
+        prompt("Digite a quantidade de Kg's que gostaria de perder: ")
+      );
+      var fatorAtividade = parseInt(
+        prompt(
+          `Escolha a carga da sua atividade física: \n 1 = Sedentário \n 2 = Levemente Ativo \n 3 = Moderadamente Ativo \n 4 = Muito Ativo \n 5 = Extremamente Ativo`
+        )
+      );
+      var recebeGeb = gastoBasal(peso, altura, idade, sexo);
+      var recebeGet = gastoTotal(recebeGeb, fatorAtividade);
+      var recebeImc = calculoIMC(peso, altura);
+      var recebeCaloria = caloriasDiarias(recebeGet);
+      var recebePerda = perdaDiaria(pesoPerder);
+
+      function calculoIMC(peso, altura) {
+        var imc = peso / (altura * altura);
+        var total = imc * 10000;
+        return total;
+      }
+
+      function gastoBasal(peso, altura, idade, sexo) {
+        var geb = 0;
+        if (sexo == 2) {
+          /* Mulheres: 655 +(9,6 x P) + (1,7 x A) – (4,7 x I) */
+          geb = 655 + 9.6 * peso + 1.7 * altura - 4.7 * idade;
+          return geb;
+        } else {
+          /* Homens: 66,47 + (13,75 x P) + (5 x A) - (6,76 x I) */
+          geb = 66.47 + 13.75 * peso + 5 * altura - 6.76 * idade;
+          return geb;
+        }
+      }
+
+      function gastoTotal(geb, fatorAtividade) {
+        /*
+                Se você é sedentário (pouco ou nenhum exercício), multiplique a TMB por 1,2.
+                Se você é levemente ativo (exercício leve 1 a 3 dias por semana), multiplique a TMB por 1,375.
+                Se você é moderadamente ativo (pratica esportes 3 a 5 dias por semana), multiplique a TMB por 1,55.
+                Se você é muito ativo (exercícios intensos de 5 a 6 dias por semana), multiplique a TMB por 1,725.
+                Se você é extremamente ativo (exercícios intensos diariamente ou até 2 vezes por dia), multiplique a TMB por 1,9.
+                           */
+        if (fatorAtividade == 1) {
+          return geb * 1.2;
+        } else if (fatorAtividade == 2) {
+          return geb * 1.375;
+        } else if (fatorAtividade == 3) {
+          return geb * 1.55;
+        } else if (fatorAtividade == 4) {
+          return geb * 1.725;
+        } else {
+          return geb * 1.9;
+        }
+      }
+
+      function caloriasDiarias(get) {
+        var quilo = 550;
+        var calDiaria = get - quilo;
+        return calDiaria;
+        /* 550Kcal diariamente de perda, perdendo no total, 1K por 14 dias = 2 semanas */
+      }
+
+      function perdaDiaria(pesoPerder) {
+        var caloria = 7700 * pesoPerder;
+        var tempo = caloria / 550;
+        return tempo;
+        /* 7700Kcal = 1 kg, multiplacando esse valor pelos quilos que a pessoa quer perder e depois
+                dividindo por 550Kcal que é o valor de calorias perdidas por dia se obtem o numero de dias
+                que a pessoa perderia o peso desejado
+                */
+      }
+
+      document.write(
+        `<center><h1>Olá, ${nome}, bem vindo ao nosso sistema para perder peso.</h1></center> <br>`
+      );
+      document.write(`Seu IMC: ${recebeImc.toFixed(2)}<br><br>`);
+      document.write(
+        `Seu Gasto Energetico Basal: ${recebeGeb.toFixed(2)} Kcal<br><br>`
+      );
+      document.write(
+        `Seu Gasto Energetico Total: ${recebeGet.toFixed(2)} Kcal<br><br>`
+      );
+      document.write(
+        `Seu Consumo Máximo por dia de calorias deve ser de: ${recebeCaloria.toFixed(
+          2
+        )} Kcal<br><br>`
+      );
+      document.write(
+        `Tempo necessário para alcançar sua Meta é: ${recebePerda} dias<br>`
+      );
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabuada</title>
+  </head>
+  <body>
+    <script>
+      var multiplicador = parseInt(prompt('Digite o multiplicador'));
+      var contador = parseInt(prompt('Por quantas vezes?'));
+      document.write('O número escolhido foi: ' + multiplicador + '<br>');
+      function tabuada() {
+        for (var i = 0; i <= contador; i++) {
+          document.write(multiplicador * i + '<br>');
+        }
+      }
+
+      tabuada();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var nome = prompt('Informe seu nome:');
+      var peso = parseFloat(prompt('Informe seu peso:'));
+      var altura = parseFloat(prompt('Informe sua altura (em m):'));
+      var idade = parseInt(prompt('Informe sua idade:'));
+      var sexo = prompt('Informe seu sexo:');
+
+      function calculaImc() {
+        return peso / (altura * altura);
+      }
+
+      document.write(calculaImc());
+
+      if (calculaImc() < 18.5) {
+        document.write(
+          `${nome}, para sua idade (${idade}} e seu sexo (${sexo}) você está abaixo do peso!`
+        );
+      } else if (calculaImc() >= 18.5 && calculaImc() <= 24.9) {
+        document.write(
+          `${nome}, para sua idade (${idade}} e seu sexo (${sexo}) seu peso está normal`
+        );
+      } else if (calculaImc() >= 25 && calculaImc() <= 29.9) {
+        document.write(
+          `${nome}, para sua idade (${idade}} e seu sexo (${sexo}) você está com sobrepeso`
+        );
+      } else if (calculaImc() >= 30 && calculaImc() <= 34.9) {
+        document.write(
+          `${nome}, para sua idade (${idade}} e seu sexo (${sexo}) você está com obesidade I`
+        );
+      } else if (calculaImc() >= 35 && calculaImc() <= 39.9) {
+        document.write(
+          `${nome}, para sua idade (${idade}} e seu sexo (${sexo}) você está com obesidade II`
+        );
+      } else {
+        document.write(
+          `${nome}, para sua idade (${idade}} e seu sexo (${sexo}) você está com obesidade mórbida`
+        );
+      }
+    </script>
+  </body>
+</html>

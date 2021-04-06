@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IRPF</title>
+  </head>
+  <body>
+    <script>
+      var salarioBruto = parseFloat(prompt('Informe seu salário:'));
+      var dependente = parseInt(prompt('Informe o número de dependentes:'));
+      var aliquota = ['0.075', '0.15', '0.225', '0.275'];
+      var deducao = ['142.80', '345.80', '636.13', '869.36'];
+
+      function calcDependente(dependente) {
+        return dependente * 189.59;
+      }
+
+      function retornaIndice(valor) {
+        if (valor >= 4664.68) {
+          return 3;
+        } else if (valor >= 3751.06 && valor <= 4664.68) {
+          return 2;
+        } else if (valor >= 2826.66 && valor <= 3751.05) {
+          return 1;
+        } else if (valor >= 1903.99 && valor <= 2826.65) {
+          return 0;
+        }
+      }
+
+      function calculaSalarioBase() {
+        return (
+          salarioBruto -
+          calcDependente() -
+          parseFloat(deducao[retornaIndice(salarioBruto)])
+        );
+      }
+
+      var salarioBase = calculaSalarioBase();
+      function calculaImposto() {
+        return (
+          (salarioBase - 1903.98) *
+          parseFloat(aliquota[retornaIndice(salarioBase)])
+        );
+      }
+
+      function salarioLiquido() {
+        return salarioBruto - calculaImposto();
+      }
+
+      var salarioLiq = salarioLiquido();
+      var impostoDevido = calculaImposto();
+
+      document.write('Seu salário líquido é de R$' + salarioLiq + '<br>');
+      document.write('Seu imposto é de R$' + impostoDevido);
+    </script>
+  </body>
+</html>
